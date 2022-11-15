@@ -26,6 +26,7 @@ namespace Unit05.Game.Scripting
         /// <inheritdoc/>
         public void Execute(Cast cast, Script script)
         {
+            // player 1 
             // left
             if (keyboardService.IsKeyDown("a"))
             {
@@ -52,6 +53,34 @@ namespace Unit05.Game.Scripting
 
             Snake snake = (Snake)cast.GetFirstActor("snake");
             snake.TurnHead(direction);
+
+            // Player 2 
+            // left
+            if (keyboardService.IsKeyDown("j"))
+            {
+                direction2 = new Point(-Constants.CELL_SIZE, 0);
+            }
+
+            // right
+            if (keyboardService.IsKeyDown("l"))
+            {
+                direction2 = new Point(Constants.CELL_SIZE, 0);
+            }
+
+            // up
+            if (keyboardService.IsKeyDown("i"))
+            {
+                direction2 = new Point(0, -Constants.CELL_SIZE);
+            }
+
+            // down
+            if (keyboardService.IsKeyDown("k"))
+            {
+                direction2 = new Point(0, Constants.CELL_SIZE);
+            }
+
+            Snake snake2 = (Snake)cast.GetSecondActor("snake");
+            snake2.TurnHead(direction2);
 
         }
     }
