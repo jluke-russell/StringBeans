@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Linq;
 
 namespace Unit05.Game.Casting
@@ -15,9 +16,11 @@ namespace Unit05.Game.Casting
         /// <summary>
         /// Constructs a new instance of a Snake.
         /// </summary>
-        public Snake()
+        public Snake(Color color, Vector2 startingPosition)
         {
-            PrepareBody();
+            
+            SetColor(color);
+            PrepareBody(startingPosition);
         }
 
         /// <summary>
@@ -64,7 +67,7 @@ namespace Unit05.Game.Casting
                 segment.SetPosition(position);
                 segment.SetVelocity(velocity);
                 segment.SetText("#");
-                segment.SetColor(Constants.GREEN);
+                segment.SetColor(GetColor());
                 segments.Add(segment);
             }
         }
@@ -98,10 +101,10 @@ namespace Unit05.Game.Casting
         /// <summary>
         /// Prepares the snake body for moving.
         /// </summary>
-        private void PrepareBody()
+        private void PrepareBody(Vector2 startingPosition)
         {
-            int x = Constants.MAX_X / 2;
-            int y = Constants.MAX_Y / 2;
+            int x = (int)startingPosition.X;
+            int y = (int)startingPosition.Y;
 
             for (int i = 0; i < Constants.SNAKE_LENGTH; i++)
             {

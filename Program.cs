@@ -2,6 +2,8 @@
 using Unit05.Game.Directing;
 using Unit05.Game.Scripting;
 using Unit05.Game.Services;
+using Unit05.Game;
+using System.Numerics;
 
 
 namespace Unit05
@@ -19,9 +21,8 @@ namespace Unit05
         {
             // create the cast
             Cast cast = new Cast();
-            cast.AddActor("food", new Food());
-            cast.AddActor("snake", new Snake());
-            cast.AddActor("score", new Score());
+            cast.AddActor("p1", new Snake(Constants.RED, new Vector2(Constants.CELL_SIZE * 4, Constants.CELL_SIZE * 4)));
+            cast.AddActor("p2", new Snake(Constants.YELLOW, new Vector2(Constants.CELL_SIZE * 4, Constants.CELL_SIZE * 4)));
 
             // create the services
             KeyboardService keyboardService = new KeyboardService();
