@@ -17,6 +17,7 @@ namespace Unit05.Game.Scripting
     public class HandleCollisionsAction : Action
     {
         private bool isGameOver = false;
+        private bool whichPlayerCollision = false;
 
         /// <summary>
         /// Constructs a new instance of HandleCollisionsAction.
@@ -32,7 +33,7 @@ namespace Unit05.Game.Scripting
             {
                 HandleCollisions(cast);
                 HandleSegmentCollisions(cast);
-                HandleGameOver(cast);
+                HandleGameOver(cast, whichPlayerCollision);
             }
         }
 
@@ -61,34 +62,69 @@ namespace Unit05.Game.Scripting
         private void HandleSegmentCollisions(Cast cast)
         {
             Snake p1 = (Snake)cast.GetFirstActor("p1");
-            Actor head = p1.GetHead();
-            List<Actor> body = p1.GetBody();
+            Actor head1 = p1.GetHead();
+            List<Actor> body1 = p1.GetBody();
+            Snake p2 = (Snake)cast.GetFirstActor("p2");
+            Actor head2 = p2.GetHead();
+            List<Actor> body2 = p2.GetBody();
 
-            foreach (Actor segment in body)
+            foreach (Actor segment in body1)
             {
-                if (segment.GetPosition().Equals(head.GetPosition()))
+                if (segment.GetPosition().Equals(head1.GetPosition()))
                 {
                     isGameOver = true;
+                    whichPlayerCollision = false;
+                }
+            }
+            foreach (Actor segment in body2)
+            {
+                if (segment.GetPosition().Equals(head2.GetPosition()))
+                {
+                    isGameOver = true;
+                    whichPlayerCollision = true;
+                }
+            }
+            foreach (Actor segment in body1)
+            {
+                if (segment.GetPosition().Equals(head2.GetPosition()))
+                {
+                    isGameOver = true;
+                    whichPlayerCollision = true;
+                }
+            }
+            foreach (Actor segment in body2)
+            {
+                if (segment.GetPosition().Equals(head1.GetPosition()))
+                {
+                    isGameOver = true;
+                    whichPlayerCollision = false;
                 }
             }
         }
 
-        private void HandleGameOver(Cast cast)
+        private void HandleGameOver(Cast cast, bool whichPlayerCollision)
         {
             if (isGameOver == true)
             {
                 Snake p1 = (Snake)cast.GetFirstActor("p1");
                 List<Actor> segments1 = p1.GetSegments();
                 Snake p2 = (Snake)cast.GetFirstActor("p2");
-                List<Actor> segments2 = p1.GetSegments();
+                List<Actor> segments2 = p2.GetSegments();
                 // create a "game over" message
                 int x = Constants.MAX_X / 2;
                 int y = Constants.MAX_Y / 2;
                 Point position = new Point(x, y);
-
                 Actor message = new Actor();
-                message.SetText("Game Over!");
                 message.SetPosition(position);
+                
+                if (whichPlayerCollision == true)
+                {
+                    message.SetText("RED WINS!");
+                }
+                else
+                {
+                    message.SetText("YELLOW WINS!");
+                }
                 cast.AddActor("messages", message);
 
                 // make everything white
