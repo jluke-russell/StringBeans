@@ -104,12 +104,12 @@ namespace Unit05.Game.Scripting
 
         private void HandleGameOver(Cast cast, bool whichPlayerCollision)
         {
+            Snake p1 = (Snake)cast.GetFirstActor("p1");
+            List<Actor> segments1 = p1.GetSegments();
+            Snake p2 = (Snake)cast.GetFirstActor("p2");
+            List<Actor> segments2 = p2.GetSegments();
             if (isGameOver == true)
             {
-                Snake p1 = (Snake)cast.GetFirstActor("p1");
-                List<Actor> segments1 = p1.GetSegments();
-                Snake p2 = (Snake)cast.GetFirstActor("p2");
-                List<Actor> segments2 = p2.GetSegments();
                 // create a "game over" message
                 int x = Constants.MAX_X / 2;
                 int y = Constants.MAX_Y / 2;
@@ -136,6 +136,11 @@ namespace Unit05.Game.Scripting
                 {
                     segment.SetColor(Constants.WHITE);
                 }      
+            }
+            else
+            {
+                p1.GrowTail(1);
+                p2.GrowTail(1);
             }
         }
 

@@ -22,7 +22,7 @@ namespace Unit05
             // create the cast
             Cast cast = new Cast();
             cast.AddActor("p1", new Snake(Constants.RED, new Vector2(Constants.CELL_SIZE * 4, Constants.CELL_SIZE * 6)));
-            cast.AddActor("p2", new Snake(Constants.YELLOW, new Vector2(Constants.CELL_SIZE * 8, Constants.CELL_SIZE * 6)));
+            cast.AddActor("p2", new Snake(Constants.YELLOW, new Vector2(Constants.CELL_SIZE * 32, Constants.CELL_SIZE * 6)));
 
             // create the services
             KeyboardService keyboardService = new KeyboardService();
